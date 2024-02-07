@@ -145,45 +145,82 @@ Output: [[1,0,1],[0,0,0],[1,0,1]]
 
 */
 
+// var setZeroes = function(matrix) {
+//     const rows = new Set()
+//     const cols = new Set()
 
-var setZeroes = function(matrix) {
-    const rows = new Set()
-    const cols = new Set()
+//     // so when you iterate twice as a nested loop first one is row and second one is columns
+//     // so if value is equal to zero you can easily point it is row and column to zero
 
-    // so when you iterate twice as a nested loop first one is row and second one is columns
-    // so if value is equal to zero you can easily point it is row and column to zero
+//     for (let i = 0; i < matrix.length; i++) { 
+//         for (let j = 0; j < matrix[i].length; j++) { 
 
-    for (let i = 0; i < matrix.length; i++) { 
-        for (let j = 0; j < matrix[i].length; j++) { 
+//             if (matrix[i][j] == 0) {
+//                 rows.add(i)
+//                 cols.add(j)
+//             }
+//         }
+//     }
 
-            if (matrix[i][j] == 0) {
-                rows.add(i)
-                cols.add(j)
-            }
-        }
-    }
+//     console.log(rows,cols)
 
-    console.log(rows,cols)
+//     // after that you loop one more time over rows and columns
+//     //so since row is 1 and cols is 1, every element in the second row matrix[1][j] where j is 0, 1 ,2 will be set to 0
+//     //the second col is where j is 1, every elemen in the second column matrix[i][1] where i is 0,1 ,2 will be set to 0
 
-    // after that you loop one more time over rows and columns
-    //so since row is 1 and cols is 1, every element in the second row matrix[1][j] where j is 0, 1 ,2 will be set to 0
-    //the second col is where j is 1, every elemen in the second column matrix[i][1] where i is 0,1 ,2 will be set to 0
+//     for (let i = 0; i < matrix.length; i++){ 
 
-    for (let i = 0; i < matrix.length; i++){ 
-
-        for (let j = 0; j < matrix[i].length; j++) { 
+//         for (let j = 0; j < matrix[i].length; j++) { 
           
-             if (rows.has(i) || cols.has(j)) { 
-                matrix[i][j] = 0
-             }
+//              if (rows.has(i) || cols.has(j)) { 
+//                 matrix[i][j] = 0
+//              }
               
-        }
-    }
+//         }
+//     }
 
 
 
-    return matrix
-};
+//     return matrix
+// };
+// console.log(setZeroes([[1,1,1],[1,0,1],[1,1,1]]))
 
 
-console.log(setZeroes([[1,1,1],[1,0,1],[1,1,1]]))
+
+
+/*
+Given an array of strings strs, group the anagrams together. You can return the answer in any order.
+An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
+Example 1:
+Input: strs = ["eat","tea","tan","ate","nat","bat"]
+Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
+*/
+
+
+var groupAnagrams = function(strs) {
+   const map = new Map()
+   
+   // use hash map method 
+
+   //first sort word and use them as a key
+
+    for (let str of strs) { 
+      const sorted = str.split('').sort().join("")
+    
+      // after sorted you can use sorted as a key and put the value inside array 
+
+      if (!map.has(sorted)) { 
+        map.set(sorted,[])
+      }
+        map.get(sorted).push(str)
+    
+    }    
+
+    return Array.from(map.values())
+    // finally return values inside array as an array
+
+}
+
+
+
+console.log(groupAnagrams(["eat","tea","tan","ate","nat","bat"]))
